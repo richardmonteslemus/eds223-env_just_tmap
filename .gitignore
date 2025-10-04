@@ -1,0 +1,6 @@
+# Ignore the data directory
+data/
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
