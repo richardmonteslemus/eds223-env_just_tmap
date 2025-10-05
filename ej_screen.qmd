@@ -1,0 +1,76 @@
+---
+title: "Environmental Justice Analysis"
+author: "Richie Montes Lemus"
+format: pdf
+editor: visual
+execute: 
+  message: false
+  warning: false
+---
+```{r}
+# Load in data
+library(tidyverse)
+library(sf)
+library(here)
+library(dplyr)
+library(tmap)
+```
+
+```{r}
+# Read in geodatabase of EJScreen data at the Census Block Group level
+ejscreen <- sf::st_read(here::here("data", "ejscreen","EJSCREEN_2023_BG_StatePct_with_AS_CNMI_GU_VI.gdb")) 
+```
+
+```{r}
+# Filter dataset to only include Cabell County West Virgina 
+cabell_ej <- ejscreen %>% 
+  filter(ST_ABBREV == "WV") %>% 
+  filter(CNTY_NAME %in% c("Cabell County")) 
+  
+```
+
+
+```{r}
+tm_shape(cabell_ej) +
+  tm_polygons(fill = "LOWINCPCT",
+              fill.scale = tm_scale(values = c("white", "darkred")), 
+              fill.legend = tm_legend(title = "Low Income %",
+              position = "left")) + 
+  tm_scalebar(position = c(0.70, 0.15)) + 
+  tm_compass(position = c(0.80, 0.45)) + 
+  tm_title(text = "Cabell County, West Virgina Census Block Group Low Income Percentage") +
+  tm_layout(inner.margins = c(0.1, 0.2, 0.1, 0.1),
+              asp = 1.8, 
+            legend.title.size = 0.6, 
+            legend.text.size = 1,   
+            legend.width = 4,       
+            legend.height = 5,
+            title.position = c(0, 1.08))
+```
+
+```{r}
+tm_shape(cabell_ej) +
+  tm_polygons(fill = "PTSDF",
+              fill.scale = tm_scale(values = c("white", "darkred")), 
+              fill.legend = tm_legend(title = "Proximity (Waste count within 5 km/km)",
+              position = "left")) + 
+  tm_scalebar(position = c(0.70, 0.15)) + 
+  tm_compass(position = c(0.80, 0.45)) + 
+  tm_title(text = "Cabell County, West Virgina Census Block Proximity to Hazardous Waste") +
+  tm_layout(inner.margins = c(0.1, 0.2, 0.1, 0.1),
+              asp = 1.8, 
+            legend.title.size = 0.5, 
+            legend.text.size = 0.5,   
+            legend.width = 15.5,       
+            legend.height = 7.5,
+            title.position = c(0, 1.08))
+```
+# What do these maps communicate? 
+
+These maps demonstrate that low income census blocks in Cabell County, West Virginia tend seem to live closer to hazardous waste. On the first map, darker areas correspond to a higher portion of the population that is low income. On the second map, darker areas correspond to a higher hazardous waste proximity index which is calculated by counting the number of waste facilities within 5km from a block and dividing each by the distance from that facility in km. It is apparent by comparing the two maps that there is an overlap between the darker areas, which suggest blocks closest to hazardous waste tend to be more low income. This may be due to the fact that areas closest to hazardous waste are often considered undesirable property and are therefore affordable. This demonstrates how low income communities are disproportionately affected by environmental hazards due to poverty reducing their environmental resilience. 
+
+# Citation: 
+
+Public Environmental Data Partners, (2025, Oct). EJ Screen. Environmental Justice Screening and Mapping Tool. https://pedp-ejscreen.azurewebsites.net/
+
+
