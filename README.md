@@ -6,7 +6,7 @@ Language: R
 
 ej_screen.qmd: A quarto document contaning code and explanations for the maps created for this project. 
 
-Data can access [here](https://drive.google.com/file/d/1nG6Nj1bXfzQFOVMO8Km3eNy4SWu1YcIQ/view)
+Data can accessed [here](https://drive.google.com/file/d/1nG6Nj1bXfzQFOVMO8Km3eNy4SWu1YcIQ/view)
 
 Author: Richard Montes Lemus 
 
