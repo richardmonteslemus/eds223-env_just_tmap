@@ -1,6 +1,7 @@
 ---
-title: "Environmental Justice Analysis"
+title: "Cabell County Association Between Income and Hazardous Waste Proximity"
 author: "Richie Montes Lemus"
+date: 10/23/2025
 format: pdf
 editor: visual
 execute: 
@@ -8,7 +9,7 @@ execute:
   warning: false
 ---
 
-```{r}
+```{r, message = FALSE}
 # Load in data
 library(tidyverse)
 library(sf)
@@ -17,7 +18,9 @@ library(dplyr)
 library(tmap)
 ```
 
-```{r}
+## Read in Data and Filter to Cabell County
+```{r, output = FALSE}
+#| message: false
 # Read in geodatabase of EJScreen data at the Census Block Group level
 ejscreen <- sf::st_read(here::here("data", "ejscreen","EJSCREEN_2023_BG_StatePct_with_AS_CNMI_GU_VI.gdb")) 
 ```
@@ -30,17 +33,20 @@ cabell_ej <- ejscreen %>%
   
 ```
 
+## Map 1: Low Income Percentage per Census Block Group
+The following map shows areas of high low income as darker red
+
 ```{r}
 tm_shape(cabell_ej) +
-  tm_polygons(fill = "LOWINCPCT",
-              fill.scale = tm_scale(values = c("white", "darkred")), 
+  tm_polygons(fill = "LOWINCPCT", # Fill polygons based on low income percentage
+              fill.scale = tm_scale(values = c("white", "darkred")), # Set high low income to red
               fill.legend = tm_legend(title = "Low Income %",
               position = "left")) + 
   tm_scalebar(position = c(0.70, 0.15)) + 
   tm_compass(position = c(0.80, 0.45)) + 
   tm_title(text = "Cabell County Census Block Group Low Income Percentage") +
-  tm_layout(inner.margins = c(0.1, 0.2, 0.1, 0.1),
-              asp = 1.8, 
+  tm_layout(inner.margins = c(0.1, 0.2, 0.1, 0.1), # Add white space to fit compass and legend 
+              asp = 1.8, # Custom aspect ratio (height and width)
             legend.title.size = 0.6, 
             legend.text.size = 1,   
             legend.width = 4,       
@@ -48,17 +54,20 @@ tm_shape(cabell_ej) +
             title.position = c(0, 1.08))
 ```
 
+## Map 2: Hazardous Waste Proximity per Census Block Group
+The following map shows areas of higher hazardous waste proximity as darker red
+
 ```{r}
 tm_shape(cabell_ej) +
-  tm_polygons(fill = "PTSDF",
-        fill.scale = tm_scale(values = c("white", "darkred")), 
+  tm_polygons(fill = "PTSDF", # Fill polygons based on hazardous waste proximity
+        fill.scale = tm_scale(values = c("white", "darkred")), # Set high waste proximity to red
         fill.legend = tm_legend(title = "Proximity (Waste count in 5km/km)",
               position = "left")) + 
   tm_scalebar(position = c(0.70, 0.15)) + 
   tm_compass(position = c(0.80, 0.45)) + 
   tm_title(text = "Cabell County Census Block Hazardous Waste Proximity") +
-  tm_layout(inner.margins = c(0.1, 0.2, 0.1, 0.1),
-              asp = 1.8, 
+  tm_layout(inner.margins = c(0.1, 0.2, 0.1, 0.1), # Add white space to fit compass and legend 
+              asp = 1.8, # Custom aspect ratio (height and width)
             legend.title.size = 0.5, 
             legend.text.size = 0.5,   
             legend.width = 15.5,       
