@@ -7,6 +7,7 @@ execute:
   message: false
   warning: false
 ---
+
 ```{r}
 # Load in data
 library(tidyverse)
@@ -29,7 +30,6 @@ cabell_ej <- ejscreen %>%
   
 ```
 
-
 ```{r}
 tm_shape(cabell_ej) +
   tm_polygons(fill = "LOWINCPCT",
@@ -38,7 +38,7 @@ tm_shape(cabell_ej) +
               position = "left")) + 
   tm_scalebar(position = c(0.70, 0.15)) + 
   tm_compass(position = c(0.80, 0.45)) + 
-  tm_title(text = "Cabell County, West Virgina Census Block Group Low Income Percentage") +
+  tm_title(text = "Cabell County Census Block Group Low Income Percentage") +
   tm_layout(inner.margins = c(0.1, 0.2, 0.1, 0.1),
               asp = 1.8, 
             legend.title.size = 0.6, 
@@ -51,12 +51,12 @@ tm_shape(cabell_ej) +
 ```{r}
 tm_shape(cabell_ej) +
   tm_polygons(fill = "PTSDF",
-              fill.scale = tm_scale(values = c("white", "darkred")), 
-              fill.legend = tm_legend(title = "Proximity (Waste count within 5 km/km)",
+        fill.scale = tm_scale(values = c("white", "darkred")), 
+        fill.legend = tm_legend(title = "Proximity (Waste count in 5km/km)",
               position = "left")) + 
   tm_scalebar(position = c(0.70, 0.15)) + 
   tm_compass(position = c(0.80, 0.45)) + 
-  tm_title(text = "Cabell County, West Virgina Census Block Proximity to Hazardous Waste") +
+  tm_title(text = "Cabell County Census Block Hazardous Waste Proximity") +
   tm_layout(inner.margins = c(0.1, 0.2, 0.1, 0.1),
               asp = 1.8, 
             legend.title.size = 0.5, 
@@ -65,12 +65,11 @@ tm_shape(cabell_ej) +
             legend.height = 7.5,
             title.position = c(0, 1.08))
 ```
-# What do these maps communicate? 
 
-These maps demonstrate that low income census blocks in Cabell County, West Virginia tend seem to live closer to hazardous waste. On the first map, darker areas correspond to a higher portion of the population that is low income. On the second map, darker areas correspond to a higher hazardous waste proximity index which is calculated by counting the number of waste facilities within 5km from a block and dividing each by the distance from that facility in km. It is apparent by comparing the two maps that there is an overlap between the darker areas, which suggest blocks closest to hazardous waste tend to be more low income. This may be due to the fact that areas closest to hazardous waste are often considered undesirable property and are therefore affordable. This demonstrates how low income communities are disproportionately affected by environmental hazards due to poverty reducing their environmental resilience. 
+# What do these maps communicate?
 
-# Citation: 
+These maps demonstrate that low income census blocks in Cabell County, West Virginia tend seem to live closer to hazardous waste. On the first map, darker areas correspond to a higher portion of the population that is low income. On the second map, darker areas correspond to a higher hazardous waste proximity index which is calculated by counting the number of waste facilities within 5km from a block and dividing each by the distance from that facility in km. It is apparent by comparing the two maps that there is an overlap between the darker areas, which suggest blocks closest to hazardous waste tend to be more low income. This may be due to the fact that areas closest to hazardous waste are often considered undesirable property and are therefore affordable. This demonstrates how low income communities are disproportionately affected by environmental hazards due to poverty reducing their environmental resilience.
 
-Public Environmental Data Partners, (2025, Oct). EJ Screen. Environmental Justice Screening and Mapping Tool. https://pedp-ejscreen.azurewebsites.net/
+# Citation:
 
-
+United States Environmental Protection Agency. 2015. EJSCREEN. Retrieved: 10, 06, 2025, from https://pedp-ejscreen.azurewebsites.net/
